@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Contact, ContactRequest } from '../models/contact.model';
+import { Skill, SkillRequest } from '../models/skill.model';
 import { environment } from '../../../environnements/environnement';
 
 @Injectable({ providedIn: 'root' })
-export class ContactService {
-    private readonly apiUrl = `${environment.apiUrl}/api/contacts`;
+export class SkillService {
+    private readonly apiUrl = `${environment.apiUrl}/api/skills`;
 
     constructor(private http: HttpClient) { }
 
-    submit(contact: ContactRequest): Observable<Contact> {
-        return this.http.post<Contact>(this.apiUrl, contact);
+    getAll(): Observable<Skill[]> {
+        return this.http.get<Skill[]>(this.apiUrl);
     }
 
-    getAll(): Observable<Contact[]> {
-        return this.http.get<Contact[]>(this.apiUrl);
+    getById(id: number): Observable<Skill> {
+        return this.http.get<Skill>(`${this.apiUrl}/${id}`);
     }
 
-    markAsRead(id: number): Observable<Contact> {
-        return this.http.patch<Contact>(`${this.apiUrl}/${id}/read`, {});
+    create(skill: SkillRequest): Observable<Skill> {
+        return this.http.post<Skill>(this.apiUrl, skill);
+    }
+
+    update(id: number, skill: SkillRequest): Observable<Skill> {
+        return this.http.put<Skill>(`${this.apiUrl}/${id}`, skill);
     }
 
     delete(id: number): Observable<void> {

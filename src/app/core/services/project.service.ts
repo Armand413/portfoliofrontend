@@ -6,7 +6,7 @@ import { environment } from '../../../environnements/environnement';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
-    private readonly apiUrl = '${environment.apiUrl}/api/projects';
+    private readonly apiUrl = `${environment.apiUrl}/api/projects`;
 
     constructor(private http: HttpClient) { }
 
@@ -34,7 +34,6 @@ export class ProjectService {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
-    // --- Images ---
     getImages(projectId: number): Observable<ProjectImage[]> {
         return this.http.get<ProjectImage[]>(`${this.apiUrl}/${projectId}/images`);
     }
@@ -49,7 +48,6 @@ export class ProjectService {
         return this.http.delete<void>(`${this.apiUrl}/${projectId}/images/${imageId}`);
     }
 
-    // URL publique pour afficher une image dans un <img>
     getImageUrl(fileName: string): string {
         return `${environment.apiUrl}/images/${fileName}`;
     }

@@ -4,21 +4,20 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginRequest, LoginResponse, UpdateCredentialsRequest } from '../models/auth.model';
-import { environment } from '../../../environnements/environnement.prod';
+import { environment } from '../../../environnements/environnement';
+
 
 const TOKEN_KEY = 'portfolio_token';
 const USERNAME_KEY = 'portfolio_username';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private readonly apiUrl = `${environment.apiUrl}/api/auth`;;
+    private readonly apiUrl = `${environment.apiUrl}/api/auth`;
+    private readonly usersUrl = `${environment.apiUrl}/api/users`;
 
-    // Détecte si le code s'exécute dans le navigateur (et pas côté serveur / SSR)
     private platformId = inject(PLATFORM_ID);
     private isBrowser = isPlatformBrowser(this.platformId);
 
-    // IMPORTANT : isAuthenticated doit être déclaré APRÈS isBrowser,
-    // car son initialisation appelle hasToken() qui dépend de isBrowser
     isAuthenticated = signal<boolean>(this.hasToken());
 
     constructor(private http: HttpClient, private router: Router) { }
@@ -36,7 +35,7 @@ export class AuthService {
     }
 
     updateCredentials(request: UpdateCredentialsRequest): Observable<LoginResponse> {
-        return this.http.put<LoginResponse>(`${this.apiUrl.replace('/auth', '/users')}/me`, request).pipe(
+        return this.http.put<LoginResponse>(`${this.usersUrl}/me`, request).pipe(
             tap((response) => {
                 if (this.isBrowser) {
                     localStorage.setItem(TOKEN_KEY, response.token);
@@ -45,6 +44,7 @@ export class AuthService {
             })
         );
     }
+
     logout(): void {
         if (this.isBrowser) {
             localStorage.removeItem(TOKEN_KEY);
