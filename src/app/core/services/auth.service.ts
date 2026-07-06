@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginRequest, LoginResponse, UpdateCredentialsRequest } from '../models/auth.model';
-import { environment } from '../../../environnements/environnement';
+import { environment } from '../../../environments/environment';
 
 
 const TOKEN_KEY = 'portfolio_token';
