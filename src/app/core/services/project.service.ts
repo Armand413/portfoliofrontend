@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Project, ProjectRequest, ProjectImage } from '../models/project.model';
+import { environment } from '../../../environnements/environnement';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
-    private readonly apiUrl = 'http://localhost:8080/api/projects';
+    private readonly apiUrl = '${environment.apiUrl}/api/projects';
 
     constructor(private http: HttpClient) { }
 
@@ -50,6 +51,6 @@ export class ProjectService {
 
     // URL publique pour afficher une image dans un <img>
     getImageUrl(fileName: string): string {
-        return `http://localhost:8080/images/${fileName}`;
+        return `${environment.apiUrl}/images/${fileName}`;
     }
 }

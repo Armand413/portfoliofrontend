@@ -4,13 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginRequest, LoginResponse, UpdateCredentialsRequest } from '../models/auth.model';
+import { environment } from '../../../environnements/environnement.prod';
 
 const TOKEN_KEY = 'portfolio_token';
 const USERNAME_KEY = 'portfolio_username';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private readonly apiUrl = 'http://localhost:8080/api/auth';
+    private readonly apiUrl = `${environment.apiUrl}/api/auth`;;
 
     // Détecte si le code s'exécute dans le navigateur (et pas côté serveur / SSR)
     private platformId = inject(PLATFORM_ID);
