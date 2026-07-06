@@ -1,0 +1,30 @@
+<div class="login-page">
+    <div class="login-card">
+        <div class="logo">armand<span>.</span>k</div>
+        <div class="label-mono"><span class="dot"></span>connexion sécurisée</div>
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="field">
+                <label for="username">Nom d'utilisateur</label>
+                <input id="username" type="text" name="username" placeholder="admin" [(ngModel)]="credentials.username"
+                    required />
+            </div>
+
+            <div class="field">
+                <label for="password">Mot de passe</label>
+                <input id="password" type="password" name="password" placeholder="••••••••"
+                    [(ngModel)]="credentials.password" required />
+            </div>
+
+            @if (errorMessage()) {
+            <p class="error-message">{{ errorMessage() }}</p>
+            }
+
+            <button type="submit" class="btn-primary" [disabled]="isLoading()">
+                {{ isLoading() ? 'Connexion...' : 'Se connecter' }}
+            </button>
+        </form>
+
+        <p class="login-note">Accès réservé à l'administrateur du portfolio.</p>
+    </div>
+</div>

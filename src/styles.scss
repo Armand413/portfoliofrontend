@@ -1,1 +1,95 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --border: #E5E4DF;
+    --text: #14181D;
+    --text-2: #5B6560;
+    --text-3: #8B9490;
+    --accent: #145C52;
+    --accent-tint: #EAF3F1;
+    --accent-strong: #0D453D;
+    --signal: #B6720E;
+    --signal-tint: #FBF1E1;
+    --danger: #B6402E;
+    --danger-tint: #FBEDE9;
+    --radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.mono {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--accent-strong);
+    }
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+        background: var(--surface);
+        border-color: var(--text-3);
+    }
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}

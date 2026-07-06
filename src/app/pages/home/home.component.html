@@ -1,0 +1,142 @@
+<app-public-nav></app-public-nav>
+
+<header class="hero">
+    <div class="wrap hero-grid">
+        <div>
+            <div class="badge"><span class="dot"></span>Développeur — ingénieur cybersécurité</div>
+            <h1>Étudiant ingénieur, spécialisation cybersécurité.</h1>
+            <p class="lead">Je conçois des applications sécurisées de bout en bout — backend Spring Boot, frontend
+                Angular, et une attention portée à la sécurité à chaque couche.</p>
+            <div class="hero-actions">
+                <a class="btn-primary" href="#projects">Voir mes projets</a>
+                <a class="btn-secondary" href="#contact">Me contacter</a>
+            </div>
+        </div>
+        <div>
+            <div class="photo-frame">
+                <div class="photo-placeholder"><span>Ta photo ici</span></div>
+            </div>
+            <div class="terminal">
+                <div class="bar"><span></span><span></span><span></span></div>
+                <div class="line muted">$ curl -X POST /api/auth/login</div>
+                <div class="line">{{ '{' }}</div>
+                <div class="line">&nbsp;&nbsp;<span class="key">"token"</span>: "eyJhbGciOi...",</div>
+                <div class="line">&nbsp;&nbsp;<span class="key">"username"</span>: "admin"</div>
+                <div class="line">{{ '}' }}</div>
+                <div class="line ok">→ 200 OK</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="about">
+    <div class="wrap">
+        <div class="section-label">// à propos</div>
+        <h2>Ce sur quoi je me concentre</h2>
+        <div class="about-grid">
+            <div>
+                <div class="avatar-placeholder"></div>
+                <p>En dernière année d'école d'ingénieur, je m'oriente vers la cybersécurité avec une base solide en
+                    développement backend et frontend.</p>
+            </div>
+            <div class="focus-list">
+                <div class="focus-item"><span class="tag">backend</span>
+                    <p><strong>Spring Boot / Java</strong> — API REST, architecture en couches, JWT.</p>
+                </div>
+                <div class="focus-item"><span class="tag">sécurité</span>
+                    <p><strong>Sécurité applicative</strong> — hachage, validation des entrées.</p>
+                </div>
+                <div class="focus-item"><span class="tag">frontend</span>
+                    <p><strong>Angular</strong> — consommation d'API, interfaces claires.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills">
+    <div class="wrap">
+        <div class="section-label">// compétences</div>
+        <h2>Stack technique</h2>
+        <div class="skills-grid">
+            @for (cat of skillCategories; track cat) {
+            <div class="skill-group">
+                <h3>{{ cat }}</h3>
+                @for (skill of skillsByCategory(cat); track skill.id) {
+                <div class="skill-row">
+                    <span class="name">{{ skill.name }}</span>
+                    <div class="level">
+                        @for (i of [1,2,3,4,5]; track i) {
+                        <i [class.on]="i <= skill.level"></i>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <div class="wrap">
+        <div class="section-label">// projets</div>
+        <h2>Projets récents</h2>
+        <div class="projects-grid">
+            @for (project of projects(); track project.id) {
+            <div class="card">
+                <span class="cat">{{ project.category | lowercase }}</span>
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+                <div class="stack">
+                    @for (tech of project.techStack.split(','); track tech) {
+                    <span>{{ tech.trim() }}</span>
+                    }
+                </div>
+                <div class="card-links">
+                    <a [routerLink]="['/projets', project.id]">En savoir plus →</a>
+                    <a [href]="project.githubUrl" target="_blank">GitHub ↗</a>
+                </div>
+            </div>
+            } @empty {
+            <p style="color:var(--text-3)">Aucun projet publié pour le moment.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="wrap">
+        <div class="section-label">// contact</div>
+        <h2>Discutons</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <p>Ouvert aux opportunités de stage ou d'alternance en cybersécurité et développement.</p>
+                <div class="contact-line">contact&#64;armand-k.dev</div>
+                <div class="contact-line">github.com/armand-k</div>
+            </div>
+            <div>
+                <form (ngSubmit)="onSubmitContact()">
+                    <div class="field"><label>Nom</label><input type="text" name="name" [(ngModel)]="contactForm.name"
+                            required /></div>
+                    <div class="field"><label>Email</label><input type="email" name="email"
+                            [(ngModel)]="contactForm.email" required /></div>
+                    <div class="field"><label>Message</label><textarea name="message" [(ngModel)]="contactForm.message"
+                            required></textarea></div>
+                    @if (contactSuccess()) { <p class="success-message">Message envoyé, merci !</p> }
+                    @if (contactError()) { <p class="error-message">{{ contactError() }}</p> }
+                    <button class="btn-primary" type="submit" [disabled]="isSubmitting()">
+                        {{ isSubmitting() ? 'Envoi...' : 'Envoyer le message' }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="wrap">
+        <span>© 2026 Armand K.</span>
+        <span class="mono"><a routerLink="/connexion">Espace admin</a></span>
+    </div>
+</footer>

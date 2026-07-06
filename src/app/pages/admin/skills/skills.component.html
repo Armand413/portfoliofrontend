@@ -1,0 +1,65 @@
+<app-admin-shell>
+    <div class="topbar">
+        <h1>Compétences</h1>
+    </div>
+
+    <div class="skills-layout">
+        <div class="form-card">
+            <h3>{{ editingId ? 'Modifier la compétence' : 'Ajouter une compétence' }}</h3>
+            <form (ngSubmit)="onSubmit()">
+                <div class="field">
+                    <label>Nom</label>
+                    <input type="text" name="name" [(ngModel)]="form.name" placeholder="Spring Boot" required />
+                </div>
+                <div class="field">
+                    <label>Catégorie</label>
+                    <select name="category" [(ngModel)]="form.category">
+                        @for (cat of categories; track cat) { <option [value]="cat">{{ cat }}</option> }
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Niveau (1 à 5)</label>
+                    <input type="number" name="level" [(ngModel)]="form.level" min="1" max="5" required />
+                </div>
+                <div class="field">
+                    <label>Ordre d'affichage</label>
+                    <input type="number" name="displayOrder" [(ngModel)]="form.displayOrder" min="0" required />
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" type="submit">{{ editingId ? 'Enregistrer' : 'Ajouter' }}</button>
+                    @if (editingId) {
+                    <button class="btn-secondary" type="button" (click)="onCancelEdit()">Annuler</button>
+                    }
+                </div>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Niveau</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (skill of skills(); track skill.id) {
+                <tr>
+                    <td>{{ skill.name }}</td>
+                    <td><span class="tag-cat">{{ skill.category | lowercase }}</span></td>
+                    <td>{{ skill.level }}/5</td>
+                    <td class="actions">
+                        <button class="icon-btn" (click)="onEdit(skill)" title="Modifier">✎</button>
+                        <button class="icon-btn danger" (click)="onDelete(skill.id)" title="Supprimer">🗑</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="4" style="color:var(--text-3)">Aucune compétence pour le moment.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</app-admin-shell>

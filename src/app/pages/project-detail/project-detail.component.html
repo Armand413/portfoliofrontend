@@ -1,0 +1,30 @@
+<app-public-nav></app-public-nav>
+
+@if (project(); as p) {
+<div class="wrap">
+    <div class="breadcrumb"><a routerLink="/" fragment="projects">Projets</a> / {{ p.title }}</div>
+    <div class="detail-head">
+        <span class="cat">{{ p.category | lowercase }}</span>
+        <h1>{{ p.title }}</h1>
+        <p class="lead">{{ p.description }}</p>
+        <div class="stack">
+            @for (tech of p.techStack.split(','); track tech) { <span>{{ tech.trim() }}</span> }
+        </div>
+        <div class="detail-actions">
+            <a class="btn-primary" [href]="p.githubUrl" target="_blank">Voir sur GitHub ↗</a>
+            <a class="btn-secondary" routerLink="/" fragment="projects">← Retour aux projets</a>
+        </div>
+    </div>
+
+    @if (p.images.length > 0) {
+    <div class="gallery">
+        @for (img of p.images; track img.id) {
+        <img [src]="getImageUrl(img.fileName)" [alt]="p.title"
+            style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;" />
+        }
+    </div>
+    } @else {
+    <p style="color:var(--text-3);margin:24px 0;">Aucune image pour ce projet pour le moment.</p>
+    }
+</div>
+}

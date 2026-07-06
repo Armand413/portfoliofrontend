@@ -1,0 +1,47 @@
+<app-admin-shell>
+    <div class="topbar">
+        <h1>Tableau de bord</h1>
+        <div class="user">
+            <div class="avatar-sm"></div>Connecté en tant que {{ authService.getUsername() }}
+        </div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric">
+            <div class="label">Projets publiés</div>
+            <div class="value">{{ projects().length }}</div>
+        </div>
+        <div class="metric">
+            <div class="label">Compétences listées</div>
+            <div class="value">{{ skillsCount() }}</div>
+        </div>
+        <div class="metric">
+            <div class="label">Messages non lus</div>
+            <div class="value signal">{{ unreadCount() }}</div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h3>Derniers messages</h3><a routerLink="/admin/messages">Voir tout →</a>
+        </div>
+        @for (m of messages().slice(0, 3); track m.id) {
+        <div class="row">
+            <span>@if (!m.read) {<span class="unread"></span>}{{ m.name }} — "{{ m.message.slice(0, 40) }}..."</span>
+        </div>
+        } @empty {
+        <div class="row"><span style="color:var(--text-3)">Aucun message pour le moment.</span></div>
+        }
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h3>Projets récents</h3><a routerLink="/admin/projets">Voir tout →</a>
+        </div>
+        @for (p of projects().slice(0, 3); track p.id) {
+        <div class="row"><span>{{ p.title }}</span><span class="sub">{{ p.category | lowercase }}</span></div>
+        } @empty {
+        <div class="row"><span style="color:var(--text-3)">Aucun projet pour le moment.</span></div>
+        }
+    </div>
+</app-admin-shell>

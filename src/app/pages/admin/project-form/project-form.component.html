@@ -1,0 +1,59 @@
+<app-admin-shell>
+    <div class="topbar">
+        <h1>{{ projectId ? 'Modifier le projet' : 'Nouveau projet' }}</h1>
+    </div>
+
+    <div class="form-card">
+        <form (ngSubmit)="onSubmit()">
+            <div class="field"><label>Titre</label><input type="text" name="title" [(ngModel)]="form.title" required />
+            </div>
+            <div class="field"><label>Description</label><textarea name="description" [(ngModel)]="form.description"
+                    required></textarea></div>
+            <div class="two-col">
+                <div class="field"><label>Stack technique</label><input type="text" name="techStack"
+                        [(ngModel)]="form.techStack" placeholder="Python, Nmap" /></div>
+                <div class="field">
+                    <label>Catégorie</label>
+                    <select name="category" [(ngModel)]="form.category">
+                        @for (cat of categories; track cat) { <option [value]="cat">{{ cat }}</option> }
+                    </select>
+                </div>
+            </div>
+            <div class="two-col">
+                <div class="field"><label>Lien GitHub</label><input type="text" name="githubUrl"
+                        [(ngModel)]="form.githubUrl" placeholder="https://github.com/..." /></div>
+                <div class="field"><label>Lien démo (optionnel)</label><input type="text" name="demoUrl"
+                        [(ngModel)]="form.demoUrl" placeholder="https://..." /></div>
+            </div>
+            <div class="form-actions">
+                <button class="btn-primary" type="submit" [disabled]="isSaving()">
+                    {{ isSaving() ? 'Enregistrement...' : 'Enregistrer le projet' }}
+                </button>
+                <a class="btn-secondary" routerLink="/admin/projets">Annuler</a>
+            </div>
+        </form>
+
+        @if (projectId) {
+        <div class="images-section" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border);">
+            <label style="display:block;font-size:13px;font-weight:500;margin-bottom:10px;">Images du projet</label>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+                @for (img of images(); track img.id) {
+                <div style="position:relative;">
+                    <img [src]="getImageUrl(img.fileName)" [alt]="form.title"
+                        style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;" />
+                    <button (click)="onDeleteImage(img.id)"
+                        style="position:absolute;top:6px;right:6px;background:#fff;border:1px solid var(--border);border-radius:50%;width:24px;height:24px;cursor:pointer;">✕</button>
+                </div>
+                }
+            </div>
+            <label class="dropzone">
+                Cliquer pour ajouter une image
+                <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onFileSelected($event)" hidden />
+            </label>
+        </div>
+        } @else {
+        <p style="color:var(--text-3);font-size:13px;margin-top:20px;">Enregistre le projet une première fois pour
+            pouvoir ajouter des images.</p>
+        }
+    </div>
+</app-admin-shell>

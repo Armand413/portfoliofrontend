@@ -1,0 +1,16 @@
+<div class="admin-layout">
+    <div class="sidebar">
+        <div class="logo">armand<span>.</span>k</div>
+        <div class="side-links">
+            <a routerLink="/admin/dashboard" routerLinkActive="active"><span class="side-dot"></span>Tableau de bord</a>
+            <a routerLink="/admin/projets" routerLinkActive="active"><span class="side-dot"></span>Projets</a>
+            <a routerLink="/admin/competences" routerLinkActive="active"><span class="side-dot"></span>Compétences</a>
+            <a routerLink="/admin/messages" routerLinkActive="active"><span class="side-dot"></span>Messages</a>
+            <a routerLink="/admin/parametres" routerLinkActive="active"><span class="side-dot"></span>Paramètres</a>
+        </div>
+        <div class="sidebar-foot">
+            <a (click)="logout()">Se déconnecter</a>
+        </div>
+    </div>
+    <div class="main"><ng-content></ng-content></div>
+</div>
