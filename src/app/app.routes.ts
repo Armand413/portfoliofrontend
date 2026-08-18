@@ -45,6 +45,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/admin/project-form/project-form.component').then(m => m.ProjectFormComponent),
             },
             {
+                path: 'competences',
+                loadComponent: () => import('./pages/admin/skills/skills.component').then(m => m.SkillsComponent),
+            },
+            {
                 path: 'messages',
                 loadComponent: () => import('./pages/admin/messages/messages.component').then(m => m.MessagesComponent),
             },
