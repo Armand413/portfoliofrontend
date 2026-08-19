@@ -9,6 +9,8 @@ import { ContactService } from '../../core/services/contact.service';
 import { Project } from '../../core/models/project.model';
 import { Skill, SkillCategory } from '../../core/models/skill.model';
 import { ContactRequest } from '../../core/models/contact.model';
+import { Certificate } from '../../core/models/certificate.model';
+import { CertificateService } from '../../core/services/certificate.service';
 
 @Component({
     selector: 'app-home',
@@ -20,6 +22,7 @@ import { ContactRequest } from '../../core/models/contact.model';
 export class HomeComponent implements OnInit {
     projects = signal<Project[]>([]);
     skills = signal<Skill[]>([]);
+    certificates = signal<Certificate[]>([]);
 
     skillCategories: SkillCategory[] = ['LANGAGE', 'FRAMEWORK', 'SECURITE', 'OUTIL'];
 
@@ -31,12 +34,15 @@ export class HomeComponent implements OnInit {
     constructor(
         private projectService: ProjectService,
         private skillService: SkillService,
-        private contactService: ContactService
+        private contactService: ContactService,
+        private certificateService: CertificateService
+
     ) { }
 
     ngOnInit(): void {
         this.projectService.getAll().subscribe((data) => this.projects.set(data));
         this.skillService.getAll().subscribe((data) => this.skills.set(data));
+        this.certificateService.getAll().subscribe((data) => this.certificates.set(data));
     }
 
     skillsByCategory(category: SkillCategory): Skill[] {

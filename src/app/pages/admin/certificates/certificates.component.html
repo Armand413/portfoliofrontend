@@ -1,0 +1,66 @@
+<app-admin-shell>
+    <div class="topbar">
+        <h1>Certificats</h1>
+    </div>
+
+    <div class="skills-layout">
+        <div class="form-card">
+            <h3>{{ editingId ? 'Modifier le certificat' : 'Ajouter un certificat' }}</h3>
+            <form (ngSubmit)="onSubmit()">
+                <div class="field">
+                    <label>Nom du certificat</label>
+                    <input type="text" name="name" [(ngModel)]="form.name"
+                        placeholder="AWS Certified Cloud Practitioner" required />
+                </div>
+                <div class="field">
+                    <label>Organisme</label>
+                    <input type="text" name="issuer" [(ngModel)]="form.issuer" placeholder="Amazon Web Services"
+                        required />
+                </div>
+                <div class="field">
+                    <label>Date d'obtention</label>
+                    <input type="date" name="issueDate" [(ngModel)]="form.issueDate" required />
+                </div>
+                <div class="field">
+                    <label>Lien de vérification</label>
+                    <input type="text" name="credentialUrl" [(ngModel)]="form.credentialUrl"
+                        placeholder="https://..." />
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" type="submit">{{ editingId ? 'Enregistrer' : 'Ajouter' }}</button>
+                    @if (editingId) {
+                    <button class="btn-secondary" type="button" (click)="onCancelEdit()">Annuler</button>
+                    }
+                </div>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Organisme</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (cert of certificates(); track cert.id) {
+                <tr>
+                    <td>{{ cert.name }}</td>
+                    <td>{{ cert.issuer }}</td>
+                    <td>{{ cert.issueDate | date:'MM/yyyy' }}</td>
+                    <td class="actions">
+                        <button class="icon-btn" (click)="onEdit(cert)" title="Modifier">✎</button>
+                        <button class="icon-btn danger" (click)="onDelete(cert.id)" title="Supprimer">🗑</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="4" style="color:var(--text-3)">Aucun certificat pour le moment.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</app-admin-shell>

@@ -105,6 +105,25 @@
         </div>
     </div>
 </section>
+<section id="certificates">
+    <div class="wrap">
+        <div class="section-label">// certificats</div>
+        <h2>Certifications</h2>
+        <div class="certificates-grid">
+            @for (cert of certificates(); track cert.id) {
+            <div class="cert-card">
+                <h3>{{ cert.name }}</h3>
+                <p class="issuer">{{ cert.issuer }} — {{ cert.issueDate | date:'MM/yyyy' }}</p>
+                @if (cert.credentialUrl) {
+                <a [href]="cert.credentialUrl" target="_blank">Vérifier ↗</a>
+                }
+            </div>
+            } @empty {
+            <p style="color:var(--text-3)">Aucun certificat pour le moment.</p>
+            }
+        </div>
+    </div>
+</section>
 
 <section id="contact">
     <div class="wrap">

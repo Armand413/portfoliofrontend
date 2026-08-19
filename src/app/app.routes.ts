@@ -56,10 +56,15 @@ export const routes: Routes = [
                 path: 'parametres',
                 loadComponent: () => import('./pages/admin/settings/settings.component').then(m => m.SettingsComponent),
             },
+            {
+                path: 'certificats',
+                loadComponent: () => import('./pages/admin/certificates/certificates.component').then(m => m.CertificatesComponent),
+            },
         ],
     },
     {
         path: '**',
         redirectTo: '',
     },
+
 ];
